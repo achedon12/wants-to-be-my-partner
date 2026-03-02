@@ -1,5 +1,6 @@
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn,} from 'typeorm';
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn, ManyToMany, JoinTable} from 'typeorm';
 import {Project} from "../../project/entities/project.entity";
+import {Interest} from "../../interest/entities/interest.entity";
 
 @Entity({name: 'user'})
 export class User {
@@ -29,4 +30,12 @@ export class User {
 
     @OneToMany(() => Project, (project) => project.user)
     projects: Project[];
+
+    @ManyToMany(() => Interest)
+    @JoinTable({
+        name: 'user_interest',
+        joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+        inverseJoinColumn: { name: 'interest_id', referencedColumnName: 'id' },
+    })
+    interests: Interest[];
 }

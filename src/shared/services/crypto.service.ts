@@ -16,14 +16,14 @@ export class CryptoService {
     return bcrypt.compare(password, hashedPassword);
   }
 
-  generateToken(role: string = Role.Entrepreneur): string {
+  generateToken(userId: number, role: string = Role.Entrepreneur): string {
     const roles = Object.values(Role);
 
     if (!roles.includes(role as Role)) {
       throw new Error(`Invalid role: ${role}`);
     }
 
-    const payload = { role };
+    const payload = { sub: userId, role };
     return this.jwtService.sign(payload);
   }
 }

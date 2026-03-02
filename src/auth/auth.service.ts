@@ -10,16 +10,8 @@ export class AuthService {
     private userService: UserService,
   ) {}
 
-  generateToken(role: string): string {
-    return this.cryptoService.generateToken(role);
-  }
-
-  async hashPassword(password: string): Promise<string> {
-    return this.cryptoService.hashPassword(password);
-  }
-
-  async passwordVerify(password: string, hashedPassword: string): Promise<boolean> {
-    return this.cryptoService.passwordVerify(password, hashedPassword);
+  generateToken(userId: number, role: string): string {
+    return this.cryptoService.generateToken(userId, role);
   }
 
   async login(loginDto: LoginDto) {
@@ -31,7 +23,7 @@ export class AuthService {
         throw new UnauthorizedException('Invalid email or password');
       }
 
-      const token = this.generateToken(user.role);
+      const token = this.generateToken(user.id, user.role);
 
       return {
         message: 'User logged in successfully',
