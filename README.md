@@ -1,98 +1,112 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Qui Veut Être Mon Associé - API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API pour matcher entrepreneurs et investisseurs. Les entrepreneurs postent leurs projets, les investisseurs les financent.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Fonctionnalités
 
-## Description
+**Authentification**
+- Inscription / Login avec JWT
+- 3 rôles : Entrepreneur, Investisseur, Admin
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**Utilisateurs**
+- Profil et modification des infos
+- Gestion des intérêts/préférences
+- Liste de tous les users (Admin)
 
-## Project setup
+**Projets**
+- Les entrepreneurs créent des projets
+- Les autres peuvent consulter et investir
+- Seul le créateur ou un admin peuvent modifier/supprimer
+- Recommandations basées sur les intérêts
 
-```bash
-$ npm install
-```
+**Investissements**
+- Les investisseurs mettent de l'argent sur les projets
+- Chacun voit ses investissements
+- Admin voit tout
+- Possibilité d'annuler
 
-## Compile and run the project
+**Intérêts**
+- Liste d'intérêts publique
+- Les users peuvent en associer à leur profil
+- Sert pour les recommandations de projets
 
-```bash
-# development
-$ npm run start
+## Installation
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
+Faut avoir Node.js 16+, npm, et MySQL.
 
 ```bash
-# unit tests
-$ npm run test
+# Cloner et installer
+git clone https://github.com/achedon12/wants-to-be-my-partner.git
+cd wants-to-be-my-partner
+npm install
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Copier le .env.example en .env et remplir les infos de la DB
+cp .env.example .env
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Démarrage
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+docker compose -f "docker-compose.dev.yml" up -d # Lancer la DB en dev
+
+npm run start:dev    # Dev avec auto-reload
+npm run start:prod   # Prod
+npm run build        # Juste compiler
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+L'API démarre sur `http://localhost:3000`
 
-## Resources
+## API Docs
 
-Check out a few resources that may come in handy when working with NestJS:
+Swagger est disponible à : `http://localhost:3000/api/docs`
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Tous les endpoints sont documentés avec les réponses, les erreurs, et ce qu'il faut envoyer.
 
-## Support
+## Routes principales
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Auth
+- `POST /api/auth/register` - S'inscrire
+- `POST /api/auth/login` - Se connecter (retourne un JWT)
 
-## Stay in touch
+### Users
+- `GET /api/user/profile` - Mon profil (besoin JWT)
+- `PUT /api/user/profile` - Modifier mon profil
+- `POST /api/user/interests` - Ajouter mes intérêts
+- `GET /api/user/interests` - Voir mes intérêts
+- `GET /api/user/list` - Voir tous les users (admin seulement)
+- `DELETE /api/user/:id` - Supprimer un user (admin seulement)
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Projects
+- `POST /api/project` - Créer un projet (entrepreneur seulement)
+- `GET /api/project/list` - Voir les projets (besoin JWT)
+- `GET /api/project/recommended` - Projets recommandés pour moi
+- `GET /api/project/:id` - Détails d'un projet
+- `PUT /api/project/:id` - Modifier mon projet
+- `DELETE /api/project/:id` - Supprimer mon projet
 
-## License
+### Interests
+- `GET /api/interest` - Tous les intérêts (public)
+- `POST /api/interest` - Créer un intérêt (admin)
+- `PATCH /api/interest/:id` - Modifier (admin)
+- `DELETE /api/interest/:id` - Supprimer (admin)
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### Investments
+- `POST /api/investment` - Investir dans un projet (investisseur)
+- `GET /api/investment` - Voir mes investissements
+- `GET /api/investment/project/:id` - Investisseurs d'un projet
+- `DELETE /api/investment/:id` - Annuler mon investissement
+
+## Utiliser l'API
+
+Pour les routes qui demandent JWT, inclure le header :
+```
+Authorization: Bearer <votre_token>
+```
+
+## Rôles
+
+**Entrepreneur** : crée des projets, voit les autres projets, les investisseurs de ses projets
+
+**Investisseur** : voit les projets, investit dedans, annule ses investissements
+
+**Admin** : accès à tout, peut supprimer n'importe quoi, voir tous les investissements
