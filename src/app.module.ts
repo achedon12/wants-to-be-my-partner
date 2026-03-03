@@ -1,5 +1,4 @@
 import {Module} from '@nestjs/common';
-import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {UserModule} from './modules/user/user.module';
 import {InterestModule} from './modules/interest/interest.module';
@@ -20,7 +19,7 @@ import {typeOrmConfig} from "./config/typeorm";
         InvestmentModule,
         AuthModule,
     ],
-    controllers: [AppController],
+    controllers: [],
     providers: [AppService],
 })
 export class AppModule {
